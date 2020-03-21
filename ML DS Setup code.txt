@@ -1,0 +1,127 @@
+	Setup:	
+	
+# setup imports
+%matplotlib inline
+from torchvision import transforms, datasets
+import torchvision
+import torch.optim as optim  # optimization package
+import torch.nn.functional as F
+import torch.nn as nn
+import torch
+from tqdm import tqdm_notebook as tqdm  # progress bar
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from torch.utils.tensorboard import SummaryWriter
+plt.style.use('dark_background')
+# plt.style.use('fivethirtyeight')
+plt.rcParams["figure.figsize"] = (20, 13)
+
+
+
+
+	TensorBoard launch:
+
+1. открыть в проводнике папку в которой лежит папка "runs"
+	# в ней хранятся все данные которые читает tensorboard, местоположение и имя этой
+	# папки можно менять. По умолчанию она создаётся там же где лежит файл юпитера в котором наша нейронка
+2. запустить консоль в этой папке
+3. ввести команду: tensorboard --logdir=runs
+4. ввести в браузере адрес: http://localhost:6006
+
+
+
+
+	Templates:
+	
+# установка размера рисунка matplotlib	
+plt.figure(figsize=(20, 13))
+	
+	
+# читаем csv файлы	
+data = pd.read_csv('D:/Stuff on HDD/My stuff/ML DS/Data_folder/нужный_файл.csv', какие-то аргументы по ситуации)	
+
+
+# pytorch gradient tracking off (to reduce computation cost), 2 варианта (1 для нескольких строк кода, 2 для функции)
+with torch.no_grad():
+	тут наш код для которого мы не хотим считать градиент (т.е. для всех задач кроме обучения)
+или можно использовать декоратор @torch.no_grad() перед функцией
+
+
+# скрыть координатные оси в matplotlib
+plt.xticks([]), plt.yticks([]); 
+
+
+# 3D plots im matplotlib
+plt.style.use('dark_background')
+ax = plt.subplot(projection='3d')
+ax.scatter3D(xs=, ys=, zs=, c=, cmap='') # c - color sequence, когда в сете 2 и более "набора" данных которые мы обозначаем разными цветами
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('r');
+
+
+# confusion_matrix
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(правильные значения, полученные значения)
+plt.figure(figsize=(15, 10))
+sns.heatmap(cm, square=True, annot=True, annot_kws={"size": 16}, cmap='copper',
+			fmt='d',xticklabels=dataset_labels, yticklabels=dataset_labels)
+plt.xlabel('True')
+plt.ylabel('Predicted');
+
+
+
+
+	Jupyter settings (install all of them in conda, don't use -pip!): # если что-то не ставится: гугли, ищи свежую команду установки на anaconda.org
+
+install pytorch (according to your CUDA and python versions):
+	https://pytorch.org/
+	
+	
+install autopep8 (автоматический рефакторинг кода в соответствии с рер8):
+	conda install autopep8
+
+
+install future (а нужно ли?):
+	conda install -c anaconda future
+
+
+install tensorflow:
+	conda install -c conda-forge tensorflow
+
+install tensorboard (набор визуализаций для нейронок):
+	conda install -c anaconda tensorboard
+
+
+install jupyter widgets (нужен для qgrid, есть ещё много годного в этом расширении):
+	conda install -c conda-forge ipywidgets
+	
+	
+install qgrid (widget for comfortable work with pandas dataframes):
+	conda install qgrid
+
+
+install jupyterthemes:
+	conda install -c conda-forge jupyterthemes
+turn off dark reader for localhost:8888, run the code below in the notebook:
+	!jt -t gruvboxd -f fira -fs 13 -nf ptsans -nfs 11 -N -kl -cursw 5 -cursc r -cellw 95% -T	
+we can further customize themes, check the readme - https://github.com/dunovank/jupyter-themes
+
+
+install Notebook Extensions (https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html):
+	conda install -c conda-forge jupyter_contrib_nbextensions
+in the new window "Nbewxtensions" (in the jupyter) turn on the following:
+	Hinterland - code autocompletion
+	Snippets - добавляет в toolbar менюшку с "трафаретами" для часто используемых кусков кода (можно создавать свои)
+	Split Cells Notebook - менеджер окон для юпитера
+	Collapsible Headings - сворачивание кода между Headings in Markdowns
+	Codefolding - сворачивание кода в обычных ячейках (как в классических IDE)
+	Autopep8 - automatic code reformating to pep8 standart
+	Notify - show a browser notification when kernel becomes idle
+	ScrollDown - Scroll outputs down automatically
+	Table of Contents - добавляет оглавление выпадающее при нажатии новой кнопки на тулбаре
+	Freeze - Freeze cells (forbid editing and executing) or make them read-only
+	Skip-Traceback - при ошибке показывается только сама ошибка, без маршрута. Его можно посмотреть кликнув по ошибке
+	Code Font Size - изменение размера шрифта без изменения размеров страницы
